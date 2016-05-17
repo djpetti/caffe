@@ -23,3 +23,6 @@ RUN cd caffe/build && make -j8
 RUN cd caffe/build && make install
 
 RUN mv caffe/ caffe_built/
+
+# Install some conveniences for actually using caffe.
+RUN sudo apt-get install -y vim wget
