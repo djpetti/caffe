@@ -12,10 +12,12 @@ RUN apt-get update && \
 RUN git clone https://github.com/BVLC/caffe.git
 RUN cd caffe && mkdir build
 RUN cd caffe/build && cmake ..
-RUN cd caffe/build && make -j`grep -c ^processor /proc/cpuinfo`
-RUN cd caffe/build && make install
 
-RUN mv caffe/ caffe_built/
+# Use bash.
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+RUN cd caffe/build && make -j$( grep -c ^processor /proc/cpuinfo )
+RUN cd caffe/build && make install
 
 # Install some conveniences for actually using caffe.
 RUN sudo apt-get install -y vim wget
